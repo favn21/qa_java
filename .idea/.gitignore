@@ -1,0 +1,12 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+/*
+
+!src/
+!target/
+!target/site/
+!target/site/jacoco/
+!.gitignore
+!README.md
+!pom.xml
