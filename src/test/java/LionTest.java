@@ -1,9 +1,7 @@
 import com.example.Feline;
 import com.example.Lion;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.ValueSource;
+
 
 import java.util.List;
 
@@ -20,19 +18,36 @@ class LionTest {
     }
 
     @Test
-    void lionShouldDelegateKittensAndFood() throws Exception {
+    void lionShouldReturnCorrectNumberOfKittens() throws Exception {
+        Feline mockFeline = mock(Feline.class);
+        when(mockFeline.getKittens()).thenReturn(2);
+        Lion lion = new Lion("Самец", mockFeline);
+        assertEquals(2, lion.getKittens());
+    }
+
+    @Test
+    void lionShouldReturnCorrectFood() throws Exception {
+        Feline mockFeline = mock(Feline.class);
+        when(mockFeline.getFood("Хищник")).thenReturn(List.of("Мясо"));
+        Lion lion = new Lion("Самец", mockFeline);
+        assertEquals(List.of("Мясо"), lion.getFood());
+    }
+
+    @Test
+    void lionShouldCallFelineMethods() throws Exception {
         Feline mockFeline = mock(Feline.class);
         when(mockFeline.getKittens()).thenReturn(2);
         when(mockFeline.getFood("Хищник")).thenReturn(List.of("Мясо"));
 
         Lion lion = new Lion("Самец", mockFeline);
 
-        assertEquals(2, lion.getKittens());
-        assertEquals(List.of("Мясо"), lion.getFood());
+        lion.getKittens();
+        lion.getFood();
 
         verify(mockFeline).getKittens();
         verify(mockFeline).getFood("Хищник");
     }
+
     @Test
     void lionConstructorShouldSetFeline() throws Exception {
         Feline mockFeline = mock(Feline.class);
@@ -40,5 +55,4 @@ class LionTest {
         assertNotNull(lion);
         assertEquals(mockFeline, lion.feline);
     }
-
 }
