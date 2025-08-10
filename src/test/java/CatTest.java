@@ -20,23 +20,40 @@ class CatTest {
     }
 
     @Test
-    void getFoodShouldReturnPredatorFoodFromInjectedFeline() throws Exception {
+    void getFoodShouldReturnPredatorFoodResultCheck() throws Exception {
         Feline mockFeline = mock(Feline.class);
         List<String> mockFood = Arrays.asList("Мясо", "Птица");
         when(mockFeline.eatMeat()).thenReturn(mockFood);
 
         Cat cat = new Cat(mockFeline);
         assertEquals(mockFood, cat.getFood());
+    }
+    @Test
+    void getFoodShouldReturnPredatorFoodVerifyCall() throws Exception {
+        Feline mockFeline = mock(Feline.class);
+        when(mockFeline.eatMeat()).thenReturn(List.of("Мясо", "Птица"));
+
+        Cat cat = new Cat(mockFeline);
+        cat.getFood();
         verify(mockFeline).eatMeat();
     }
 
     @Test
-    void getFoodFromFeline() throws Exception {
+    void getFoodFromFelineResultCheck() throws Exception {
         Feline mockFeline = mock(Feline.class);
         when(mockFeline.eatMeat()).thenReturn(List.of("Мыши", "Птицы"));
 
         Cat cat = new Cat(mockFeline);
         assertEquals(List.of("Мыши", "Птицы"), cat.getFood());
+    }
+
+    @Test
+    void getFoodFromFelineVerifyCall() throws Exception {
+        Feline mockFeline = mock(Feline.class);
+        when(mockFeline.eatMeat()).thenReturn(List.of("Мыши", "Птицы"));
+
+        Cat cat = new Cat(mockFeline);
+        cat.getFood();
         verify(mockFeline).eatMeat();
     }
 

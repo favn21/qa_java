@@ -34,25 +34,36 @@ class LionTest {
     }
 
     @Test
-    void lionShouldCallFelineMethods() throws Exception {
+    void lionShouldCallGetKittensOnFeline() throws Exception {
         Feline mockFeline = mock(Feline.class);
         when(mockFeline.getKittens()).thenReturn(2);
-        when(mockFeline.getFood("Хищник")).thenReturn(List.of("Мясо"));
-
         Lion lion = new Lion("Самец", mockFeline);
 
         lion.getKittens();
-        lion.getFood();
-
         verify(mockFeline).getKittens();
+    }
+
+    @Test
+    void lionShouldCallGetFoodOnFeline() throws Exception {
+        Feline mockFeline = mock(Feline.class);
+        when(mockFeline.getFood("Хищник")).thenReturn(List.of("Мясо"));
+        Lion lion = new Lion("Самец", mockFeline);
+
+        lion.getFood();
         verify(mockFeline).getFood("Хищник");
     }
 
     @Test
-    void lionConstructorShouldSetFeline() throws Exception {
+    void lionConstructorShouldCreateLionInstance() throws Exception {
         Feline mockFeline = mock(Feline.class);
         Lion lion = new Lion("Самец", mockFeline);
         assertNotNull(lion);
+    }
+
+    @Test
+    void lionConstructorShouldInjectFeline() throws Exception {
+        Feline mockFeline = mock(Feline.class);
+        Lion lion = new Lion("Самец", mockFeline);
         assertEquals(mockFeline, lion.feline);
     }
 }
